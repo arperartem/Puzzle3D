@@ -10,12 +10,15 @@ public class ToolBox
 
 public class CubeManager : MonoBehaviour
 {
+    [SerializeField] private CubeConfig _cubeConfig;
+    [Space]
     [SerializeField] private Transform _ball;
-    [SerializeField] private float _speed;
     [Space]
     [SerializeField] private Puzzle _startPoint;
     [SerializeField] private Puzzle _finishPoint;
-
+    [Space]
+    [SerializeField] private ParticleSystem[] _finishParticles;
+    [Space]
     [SerializeField] private Transform _puzzlePlainContainer;
     private Puzzle[] _puzzles;
 
@@ -28,9 +31,11 @@ public class CubeManager : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < transform.childCount; i++)
+        _puzzles = _puzzlePlainContainer.GetComponentsInChildren<Puzzle>();
+
+        for (int i = 0; i < _puzzles.Length; i++)
         {
-            _puzzles = GetComponentsInChildren<Puzzle>();
+            _puzzles[i].Init(_cubeConfig);
         }
 
         Puzzle.IsInteractable = true;
@@ -51,7 +56,7 @@ public class CubeManager : MonoBehaviour
 
         while (true)
         {
-            float step = _speed * Time.fixedDeltaTime;
+            float step = Config.SpeedBall * Time.fixedDeltaTime;
             _ball.transform.localPosition = Vector3.MoveTowards(_ball.transform.localPosition, targetPos, step);
 
             if (Mathf.Approximately(_ball.transform.localPosition.x, targetPos.x) && Mathf.Approximately(_ball.transform.localPosition.z, targetPos.z))
@@ -72,14 +77,30 @@ public class CubeManager : MonoBehaviour
             }
         }
 
-        Finish();
+        StartCoroutine(Finish());
     }
 
-    private void Finish()
+    private IEnumerator Finish()
     {
-        LevelController.ToNextLevel?.Invoke();
+        PlayFinishParticles();
+
+        GetComponent<AudioSource>().clip = _cubeConfig.Audio.Finish;
+        GetComponent<AudioSource>().Play();
+
+        yield return new WaitForSeconds(_cubeConfig.DelayNextCube);
+
+        Instantiate(Resources.Load<FinishWindow>("FinishWindow"), GameObject.FindGameObjectWithTag("UI").transform);
+    }
+
+    private void PlayFinishParticles()
+    {
+        for(int i = 0; i < _finishParticles.Length; i++)
+        {
+            _finishParticles[i].Play();
+        }
     }
 
     public bool CheckPath() => _pathFinder.Find(_startPoint, _finishPoint, _puzzles).Count > 0;
+    public CubeConfig Config => _cubeConfig;
 }
 

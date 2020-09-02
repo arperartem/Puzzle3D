@@ -26,8 +26,9 @@ public class LevelController : MonoBehaviour
     {
         if(CurrentLevel < 0 || CurrentLevel >= _levels.Length)
         {
+            CurrentLevel = 0;
             Debug.LogError("Unknow level!");
-            return;
+            //return;
         }
 
         if(_currentLevel != null)

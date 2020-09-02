@@ -15,11 +15,29 @@ public class Puzzle : MonoBehaviour
     [Space]
     [SerializeField] private Transform[] _helpDecors;
 
+    private AudioSource _audioSource;
+
     private Vector2Int _firstPost;
 
-    void Start()
+    private CubeConfig _config;
+
+    private void OnEnable()
     {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    void Start()
+    {  
         _firstPost = Cell;
+    }
+
+    public void Init(CubeConfig config)
+    {
+        _config = config;
+        if (_audioSource != null)
+        {
+            _audioSource.clip = _config.Audio.ClickPlatform;
+        }   
     }
 
     private void OnMouseUp()
@@ -40,6 +58,7 @@ public class Puzzle : MonoBehaviour
             {
                 Swap(this);
                 Debug.Log("IsNeighbor");
+                _audioSource.Play();
             }
             else
             {
@@ -53,6 +72,7 @@ public class Puzzle : MonoBehaviour
         {
             ActivePuzzle = this;
             Active(true);
+            _audioSource.Play();
         }
     }
 
@@ -65,14 +85,14 @@ public class Puzzle : MonoBehaviour
 
         ActivePuzzle.DOKill();
 
-        ActivePuzzle.transform.DOLocalMove(new Vector3(targetPos.x, ActivePuzzle.transform.localPosition.y, targetPos.z), 0.5f).OnComplete(() => 
+        ActivePuzzle.transform.DOLocalMove(new Vector3(targetPos.x, ActivePuzzle.transform.localPosition.y, targetPos.z), _config.UpSpeedPlatform).OnComplete(() => 
         {
             //ActivePuzzle.CheckDecorHelpers();
-            ActivePuzzle.transform.DOLocalMove(targetPos, .5f);
+            ActivePuzzle.transform.DOLocalMove(targetPos, _config.SwapSpeedPlatform);
 
             targetPuzzle.DOKill();
             //targetPuzzle.CheckDecorHelpers();
-            targetPuzzle.transform.DOLocalMove(activePos, 0.5f).OnComplete(OnSwap);
+            targetPuzzle.transform.DOLocalMove(activePos, _config.SwapSpeedPlatform).OnComplete(OnSwap);
         });
     }
 
@@ -148,11 +168,11 @@ public class Puzzle : MonoBehaviour
 
         if (IsActive)
         {
-            transform.DOLocalMoveY(0.2f, 0.5f);
+            transform.DOLocalMoveY(0.2f, _config.UpSpeedPlatform);
         }
         else
         {
-            transform.DOLocalMoveY(0f, 0.5f);
+            transform.DOLocalMoveY(0f, _config.UpSpeedPlatform);
         }
     }
 

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3634efba64e2d4a46b3661b6e7ec3c59, type: 3}
+  m_Name: CubeConfig
+  m_EditorClassIdentifier: 
+  DelayNextCube: 2.5
+  SpeedBall: 2.5
+  UpSpeedPlatform: 0.3
+  SwapSpeedPlatform: 0.3
+  Rotate:
+    SpeedRotate: 0.1
+    MinDistance: 15
+  Zoom:
+    MouseZoomSpeed: 15
+    TouchZoomSpeed: 0.1
+    ZoomMinBound: 40
+    ZoomMaxBound: 60
+  Audio:
+    BackgroundMusic: {fileID: 8300000, guid: cacccae39996a664dacabacf73cba364, type: 3}
+    ClickPlatform: {fileID: 8300000, guid: e5865751178490547b0274479617fcd4, type: 3}
+    Finish: {fileID: 8300000, guid: 9d2a563043025534e865d13b58c6098e, type: 3}

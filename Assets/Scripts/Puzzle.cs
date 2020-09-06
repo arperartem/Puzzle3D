@@ -80,6 +80,8 @@ public class Puzzle : MonoBehaviour
     {
         IsInteractable = false;
 
+        ToolBox.CubeManager.ResetOutlinePuzzles();
+
         Vector3 targetPos = targetPuzzle.transform.localPosition;
         Vector3 activePos = new Vector3(ActivePuzzle.transform.localPosition.x, 0f, ActivePuzzle.transform.localPosition.z);
 
@@ -169,14 +171,48 @@ public class Puzzle : MonoBehaviour
         if (IsActive)
         {
             transform.DOLocalMoveY(0.2f, _config.UpSpeedPlatform);
+            SetOutline(true);
+            SetOutlineNeighbors(true);
         }
         else
         {
             transform.DOLocalMoveY(0f, _config.UpSpeedPlatform);
+            SetOutline(false);
+            SetOutlineNeighbors(false);
+        }
+    }
+
+    public void SetOutline(bool enable)
+    {
+        Material[] temp;
+        MeshRenderer mr = GetComponent<MeshRenderer>();
+        if (enable)
+        {
+            temp = new Material[2];
+            temp[0] = mr.materials[0];
+            temp[1] = Resources.Load<Material>("Outline");      
+        }
+        else
+        {
+            temp = new Material[1];
+            temp[0] = mr.materials[0];   
+        }
+
+        mr.materials = temp;
+    }
+
+    private void SetOutlineNeighbors(bool enable)
+    {
+        List<Puzzle> neighbors = ToolBox.CubeManager.GetNeighbors(this);
+
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            neighbors[i].SetOutline(enable);
         }
     }
 
     public bool IsActive { get; private set; }
+    public bool Interactable => _interactable;
     public Direction[] Directions => _dirs;
     public Vector2Int Cell => new Vector2Int((int)transform.localPosition.x, (int)transform.localPosition.z);
 

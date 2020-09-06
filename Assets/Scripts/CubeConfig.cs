@@ -37,7 +37,6 @@ public class CubeConfig : ScriptableObject
         public AudioClip BackgroundMusic;
         public AudioClip ClickPlatform;
         public AudioClip Finish;
-
     }
 }
 

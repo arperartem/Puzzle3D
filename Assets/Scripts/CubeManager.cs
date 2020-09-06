@@ -100,6 +100,42 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    public List<Puzzle> GetNeighbors(Puzzle centerPuzzle)
+    {
+        List<Puzzle> result = new List<Puzzle>();
+        for (int i = 0; i < _puzzles.Length; i++)
+        {
+            if (!_puzzles[i].Interactable) continue;
+
+            if(centerPuzzle.Cell.x + 1 == _puzzles[i].Cell.x && centerPuzzle.Cell.y == _puzzles[i].Cell.y)
+            {
+                result.Add(_puzzles[i]);
+            }
+            if (centerPuzzle.Cell.x - 1 == _puzzles[i].Cell.x && centerPuzzle.Cell.y == _puzzles[i].Cell.y)
+            {
+                result.Add(_puzzles[i]);
+            }
+            if (centerPuzzle.Cell.x == _puzzles[i].Cell.x && centerPuzzle.Cell.y + 1 == _puzzles[i].Cell.y)
+            {
+                result.Add(_puzzles[i]);
+            }
+            if (centerPuzzle.Cell.x == _puzzles[i].Cell.x && centerPuzzle.Cell.y - 1 == _puzzles[i].Cell.y)
+            {
+                result.Add(_puzzles[i]);
+            }
+        }
+
+        return result;
+    }
+
+    public void ResetOutlinePuzzles()
+    {
+        for (int i = 0; i < _puzzles.Length; i++)
+        {
+            _puzzles[i].SetOutline(false);
+        }
+    }
+
     public bool CheckPath() => _pathFinder.Find(_startPoint, _finishPoint, _puzzles).Count > 0;
     public CubeConfig Config => _cubeConfig;
 }

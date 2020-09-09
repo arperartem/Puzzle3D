@@ -135,9 +135,11 @@ public class Puzzle : MonoBehaviour
 
         for (int i = 0; i < _helpDecors.Length; i++)
         {
-            _helpDecors[i].DOKill();
-
-            _helpDecors[i].DOScale(val, 0.5f);
+            if(_helpDecors[i] != null)
+            {
+                _helpDecors[i].DOKill();
+                _helpDecors[i].DOScale(val, 0.5f);
+            } 
         }
     }
 

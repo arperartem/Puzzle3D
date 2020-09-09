@@ -25,6 +25,6 @@ MonoBehaviour:
     ZoomMinBound: 40
     ZoomMaxBound: 60
   Audio:
-    BackgroundMusic: {fileID: 8300000, guid: cacccae39996a664dacabacf73cba364, type: 3}
+    BackgroundMusic: {fileID: 0}
     ClickPlatform: {fileID: 8300000, guid: e5865751178490547b0274479617fcd4, type: 3}
     Finish: {fileID: 8300000, guid: 9d2a563043025534e865d13b58c6098e, type: 3}

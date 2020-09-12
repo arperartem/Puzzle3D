@@ -5,15 +5,15 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     private const string LEVEL_KEY = "LAST_LEVEL";
+    private const string SCORE_KEY = "_SCORE_KEY";
 
     [SerializeField] private Transform[] _levels;
 
-    public static System.Action ToNextLevel;
     private Transform _currentLevel;
 
     private void OnEnable()
     {
-        ToNextLevel += LoadNextLevel;
+        GameEvents.LoadNewLevel += LoadNextLevel;
     }
 
     private void Start()
@@ -52,6 +52,8 @@ public class LevelController : MonoBehaviour
         
         SaveLevel(CurrentLevel);
         CreateLevel();
+
+        GameEvents.OnLoadNewLevel?.Invoke();
     }
 
     private int LoadLevel()
@@ -65,10 +67,26 @@ public class LevelController : MonoBehaviour
 
     private void SaveLevel(int level) => PlayerPrefs.SetInt(LEVEL_KEY, level);
 
+    public static int GetBestScore()
+    {
+        if (PlayerPrefs.HasKey(CurrentLevel + SCORE_KEY))
+        {
+            return PlayerPrefs.GetInt(CurrentLevel + SCORE_KEY);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public static void SaveBestScore(int score)
+    {
+        PlayerPrefs.SetInt(CurrentLevel + SCORE_KEY, score);
+    }
+
     public static int CurrentLevel { get; private set; } = 0;
 
     private void OnDisable()
     {
-        ToNextLevel -= LoadNextLevel;
+        GameEvents.LoadNewLevel -= LoadNextLevel;
     }
 }

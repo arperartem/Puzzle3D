@@ -41,6 +41,12 @@ public class CubeManager : MonoBehaviour
         Puzzle.IsInteractable = true;
     }
 
+    public void OnSwapPuzzle()
+    {
+        CountSwaps++;
+        GameEvents.OnSwap?.Invoke(CountSwaps);
+    }
+
     public void OnCorrectPath()
     {
         List<Puzzle> path = _pathFinder.Find(_startPoint, _finishPoint, _puzzles);
@@ -82,6 +88,12 @@ public class CubeManager : MonoBehaviour
 
     private IEnumerator Finish()
     {
+        if(CountSwaps > LevelController.GetBestScore())
+        {
+            LevelController.SaveBestScore(CountSwaps);
+            GameEvents.OnNewBestScore?.Invoke(CountSwaps);
+        }
+
         PlayFinishParticles();
 
         GetComponent<AudioSource>().clip = _cubeConfig.Audio.Finish;
@@ -138,5 +150,6 @@ public class CubeManager : MonoBehaviour
 
     public bool CheckPath() => _pathFinder.Find(_startPoint, _finishPoint, _puzzles).Count > 0;
     public CubeConfig Config => _cubeConfig;
+    public int CountSwaps { get; private set; }
 }
 

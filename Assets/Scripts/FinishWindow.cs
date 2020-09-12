@@ -6,7 +6,7 @@ public class FinishWindow : MonoBehaviour
 {
     public void LoadNextLevel()
     {
-        LevelController.ToNextLevel?.Invoke();
+        GameEvents.LoadNewLevel?.Invoke();
         Destroy(gameObject);
     }
 }

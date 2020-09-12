@@ -156,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _dirs: 
+  _targetPositions: []
   _helpDecors: []
 --- !u!114 &580127502
 MonoBehaviour:
@@ -171,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _dirs: 
+  _targetPositions: []
   _helpDecors: []
 --- !u!1001 &17683893599745925
 PrefabInstance:
@@ -2026,6 +2028,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1001464878, guid: d10b86d110729064f9b83800f884ab74, type: 3}
+      propertyPath: _targetPositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001464878, guid: d10b86d110729064f9b83800f884ab74, type: 3}
       propertyPath: _dirs.Array.data[1]
       value: 0
       objectReference: {fileID: 0}
@@ -2037,6 +2043,18 @@ PrefabInstance:
       propertyPath: _helpDecors.Array.data[0]
       value: 
       objectReference: {fileID: 3580442730118464402}
+    - target: {fileID: 1001464878, guid: d10b86d110729064f9b83800f884ab74, type: 3}
+      propertyPath: _targetPositions.Array.data[0].z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001464878, guid: d10b86d110729064f9b83800f884ab74, type: 3}
+      propertyPath: _targetPositions.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001464878, guid: d10b86d110729064f9b83800f884ab74, type: 3}
+      propertyPath: _targetPositions.Array.data[0].y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 979873492421864585, guid: d10b86d110729064f9b83800f884ab74,
         type: 3}
       propertyPath: m_Name

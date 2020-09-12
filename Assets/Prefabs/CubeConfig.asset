@@ -23,7 +23,7 @@ MonoBehaviour:
     MouseZoomSpeed: 15
     TouchZoomSpeed: 0.1
     ZoomMinBound: 40
-    ZoomMaxBound: 60
+    ZoomMaxBound: 80
   Audio:
     BackgroundMusic: {fileID: 0}
     ClickPlatform: {fileID: 8300000, guid: e5865751178490547b0274479617fcd4, type: 3}

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -13,7 +13,9 @@ public class Puzzle : MonoBehaviour
     [Space]
     [SerializeField] private Direction[] _dirs;
     [Space]
-    [SerializeField] private Transform[] _helpDecors;
+    [Header("!!! Y = Z !!!")]
+    [BoxGroup("Help Decors")] [SerializeField] private Vector2Int[] _targetPositions;
+    [BoxGroup("Help Decors")] [SerializeField] private Transform[] _helpDecors;
 
     private AudioSource _audioSource;
 
@@ -114,6 +116,8 @@ public class Puzzle : MonoBehaviour
         {
             IsInteractable = true;
         }
+
+        ToolBox.CubeManager.OnSwapPuzzle();
     }
 
     public void CheckDecorHelpers()
@@ -124,7 +128,7 @@ public class Puzzle : MonoBehaviour
         {
             val = 0;
         }
-        else if(Cell.x == _firstPost.x && Cell.y == _firstPost.y)
+        else if(IsOnTargetPosition()/*Cell.x == _firstPost.x && Cell.y == _firstPost.y*/)
         {
             val = 0.5f;
         }
@@ -140,6 +144,18 @@ public class Puzzle : MonoBehaviour
                 _helpDecors[i].DOKill();
                 _helpDecors[i].DOScale(val, 0.5f);
             } 
+        }
+
+        bool IsOnTargetPosition()
+        {
+            for (int i = 0; i < _targetPositions.Length; i++)
+            {
+                if (Cell.x == _targetPositions[i].x && Cell.y == _targetPositions[i].y)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

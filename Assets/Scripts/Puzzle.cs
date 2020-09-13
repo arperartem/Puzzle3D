@@ -23,7 +23,7 @@ public class Puzzle : MonoBehaviour
     private void OnEnable()
     {
         _audioSource = GetComponent<AudioSource>();
-        CheckDecorHelpers();
+        CheckDecorHelpers(false);
     }
 
     public void Init(CubeConfig config)

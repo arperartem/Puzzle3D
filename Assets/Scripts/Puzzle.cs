@@ -18,19 +18,12 @@ public class Puzzle : MonoBehaviour
     [BoxGroup("Help Decors")] [SerializeField] private Transform[] _helpDecors;
 
     private AudioSource _audioSource;
-
-    private Vector2Int _firstPost;
-
     private CubeConfig _config;
 
     private void OnEnable()
     {
         _audioSource = GetComponent<AudioSource>();
-    }
-
-    void Start()
-    {  
-        _firstPost = Cell;
+        CheckDecorHelpers();
     }
 
     public void Init(CubeConfig config)
@@ -120,7 +113,7 @@ public class Puzzle : MonoBehaviour
         ToolBox.CubeManager.OnSwapPuzzle();
     }
 
-    public void CheckDecorHelpers()
+    public void CheckDecorHelpers(bool anim = true)
     {
         float val = default;
 
@@ -142,7 +135,14 @@ public class Puzzle : MonoBehaviour
             if(_helpDecors[i] != null)
             {
                 _helpDecors[i].DOKill();
-                _helpDecors[i].DOScale(val, 0.5f);
+                if (anim)
+                {
+                    _helpDecors[i].DOScale(val, 0.5f);
+                }
+                else
+                {
+                    _helpDecors[i].localScale = new Vector3(val, val, val);
+                }
             } 
         }
 

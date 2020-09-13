@@ -86,13 +86,13 @@ MonoBehaviour:
     value: 1
   softKnee:
     overrideState: 1
-    value: 0.5
+    value: 0.379
   clamp:
     overrideState: 1
     value: 65472
   diffusion:
     overrideState: 1
-    value: 7
+    value: 5.98
   anamorphicRatio:
     overrideState: 1
     value: 0
@@ -130,10 +130,10 @@ MonoBehaviour:
     value: 6.45
   aperture:
     overrideState: 1
-    value: 7.8
+    value: 4.6
   focalLength:
     overrideState: 1
-    value: 177
+    value: 143
   kernelSize:
     overrideState: 1
     value: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.596
+    value: 0.452
   fastMode:
     overrideState: 1
     value: 0

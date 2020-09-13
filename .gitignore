@@ -58,3 +58,13 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Materials.meta
+Assets/Animations/boat.anim
+Assets/Animations/boat.anim.meta
+Assets/Animations/ForestBoat.controller
+Assets/Animations/ForestBoat.controller.meta
+Assets/Animations/ForestCanoe.controller
+Assets/Animations/ForestCanoe.controller.meta
+Assets/Materials/sand.mat
+Assets/Materials/sand.mat.meta
+ProjectSettings/Packages/com.unity.probuilder/Settings.json
